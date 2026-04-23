@@ -1,0 +1,31 @@
+// DRC provinces (26). Codes follow common ISO-like convention.
+export const PROVINCES: Array<{ code: string; nameFr: string; nameSw: string }> = [
+  { code: "KN", nameFr: "Kinshasa", nameSw: "Kinshasa" },
+  { code: "KC", nameFr: "Kongo-Central", nameSw: "Kongo ya Kati" },
+  { code: "KS", nameFr: "Kwango", nameSw: "Kwango" },
+  { code: "KL", nameFr: "Kwilu", nameSw: "Kwilu" },
+  { code: "MN", nameFr: "Mai-Ndombe", nameSw: "Mai-Ndombe" },
+  { code: "KE", nameFr: "Kasaï", nameSw: "Kasai" },
+  { code: "KO", nameFr: "Kasaï-Oriental", nameSw: "Kasai ya Mashariki" },
+  { code: "KC2", nameFr: "Kasaï-Central", nameSw: "Kasai ya Kati" },
+  { code: "LO", nameFr: "Lomami", nameSw: "Lomami" },
+  { code: "SA", nameFr: "Sankuru", nameSw: "Sankuru" },
+  { code: "MA", nameFr: "Maniema", nameSw: "Maniema" },
+  { code: "SK", nameFr: "Sud-Kivu", nameSw: "Kivu ya Kusini" },
+  { code: "NK", nameFr: "Nord-Kivu", nameSw: "Kivu ya Kaskazini" },
+  { code: "IT", nameFr: "Ituri", nameSw: "Ituri" },
+  { code: "HU", nameFr: "Haut-Uele", nameSw: "Uele ya Juu" },
+  { code: "TS", nameFr: "Tshopo", nameSw: "Tshopo" },
+  { code: "BU", nameFr: "Bas-Uele", nameSw: "Uele ya Chini" },
+  { code: "NU", nameFr: "Nord-Ubangi", nameSw: "Ubangi ya Kaskazini" },
+  { code: "MG", nameFr: "Mongala", nameSw: "Mongala" },
+  { code: "SU", nameFr: "Sud-Ubangi", nameSw: "Ubangi ya Kusini" },
+  { code: "EQ", nameFr: "Équateur", nameSw: "Ikweta" },
+  { code: "TU", nameFr: "Tshuapa", nameSw: "Tshuapa" },
+  { code: "TA", nameFr: "Tanganyika", nameSw: "Tanganyika" },
+  { code: "HK", nameFr: "Haut-Katanga", nameSw: "Katanga ya Juu" },
+  { code: "LU", nameFr: "Lualaba", nameSw: "Lualaba" },
+  { code: "HL", nameFr: "Haut-Lomami", nameSw: "Lomami ya Juu" },
+];
+
+export type ProvinceCode = (typeof PROVINCES)[number]["code"];

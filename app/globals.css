@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 250 250 248;
+  --foreground: 23 23 26;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 18 18 22;
+    --foreground: 245 245 247;
+  }
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: rgb(var(--foreground));
+  background: rgb(var(--background));
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid rgb(124 77 255);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Hide scrollbar on specific elements but keep scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+/* Print hide for panic close button */
+@media print {
+  .print-hide {
+    display: none;
+  }
+}

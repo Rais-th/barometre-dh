@@ -1,0 +1,180 @@
+// Baromètre DH — Prisma schema
+// La Dignité Humaine Asbl × Popuzar LLC
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  PARTNER
+}
+
+enum ReportType {
+  DOMESTIC_VIOLENCE
+  GBV
+  ELECTORAL_VIOLENCE
+  OTHER
+}
+
+enum CaseStatus {
+  NEW
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum ContactPreference {
+  ANONYMOUS
+  CALLBACK_SELF
+  CALLBACK_TRUSTED
+}
+
+enum AgeBracket {
+  UNDER_13
+  A_13_17
+  A_18_24
+  A_25_34
+  A_35_44
+  A_45_54
+  A_55_PLUS
+  UNKNOWN
+}
+
+enum AggressorRelation {
+  SPOUSE
+  PARTNER_EX
+  FAMILY
+  NEIGHBOR
+  COWORKER
+  AUTHORITY_FIGURE
+  STRANGER
+  OTHER
+  UNKNOWN
+}
+
+enum PartnerCategory {
+  SHELTER
+  LEGAL_AID
+  MEDICAL
+  PSYCHOSOCIAL
+  POLICE
+  MINISTRY
+  HOTLINE
+  OTHER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  name          String
+  role          Role      @default(STAFF)
+  createdAt     DateTime  @default(now())
+  lastLoginAt   DateTime?
+  notes         CaseNote[]
+  assignedCases Case[]    @relation("AssignedBy")
+  accessLogs    AccessLog[]
+}
+
+model Province {
+  code    String @id
+  nameFr  String
+  nameSw  String
+  cases   Case[]
+  partners Partner[]
+}
+
+model Partner {
+  id           String           @id @default(cuid())
+  name         String
+  category     PartnerCategory
+  provinceCode String
+  province     Province         @relation(fields: [provinceCode], references: [code])
+  contactPhone String?
+  contactEmail String?
+  address      String?
+  services     String
+  website      String?
+  verified     Boolean          @default(false)
+  createdAt    DateTime         @default(now())
+  cases        Case[]
+}
+
+model Case {
+  id                String             @id @default(cuid())
+  code              String             @unique
+  reportType        ReportType
+  provinceCode      String
+  province          Province           @relation(fields: [provinceCode], references: [code])
+  territoire        String?
+  victimAgeBracket  AgeBracket
+  victimProfession  String?
+  aggressorRelation AggressorRelation
+  aggressorKnown    Boolean
+  contactPreference ContactPreference
+  // Encrypted JSON payload (AES-256-GCM). Contains:
+  // { incidentSummary, preciseAddress, trustedContactPhone, extraNotes }
+  encryptedPayload  String             @db.Text
+  status            CaseStatus         @default(NEW)
+  assignedPartnerId String?
+  assignedPartner   Partner?           @relation(fields: [assignedPartnerId], references: [id])
+  assignedById      String?
+  assignedBy        User?              @relation("AssignedBy", fields: [assignedById], references: [id])
+  submittedAt       DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  notes             CaseNote[]
+  files             CaseFile[]
+  locale            String             @default("fr")
+
+  @@index([status])
+  @@index([reportType])
+  @@index([provinceCode])
+  @@index([submittedAt])
+}
+
+model CaseNote {
+  id        String   @id @default(cuid())
+  caseId    String
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([caseId])
+}
+
+model CaseFile {
+  id          String   @id @default(cuid())
+  caseId      String
+  case        Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  url         String
+  filename    String
+  contentType String
+  size        Int
+  createdAt   DateTime @default(now())
+
+  @@index([caseId])
+}
+
+model AccessLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  target    String?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
