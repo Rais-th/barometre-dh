@@ -9,31 +9,47 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Brand palette centered on #d9effe (the user-specified base).
+        // Designed for a GBV reporting platform — calm, institutional, trustworthy.
         brand: {
-          50: "#f4f1ff",
-          100: "#ebe4ff",
-          200: "#d9ccff",
-          300: "#bca5ff",
-          400: "#9b75ff",
-          500: "#7c4dff",
-          600: "#6a32f5",
-          700: "#5a21d8",
-          800: "#4a1caf",
-          900: "#3f1c8f",
-          950: "#270e5f",
+          50: "#f4fafe",
+          100: "#e8f4fe",
+          200: "#d9effe",
+          300: "#b8e0fd",
+          400: "#8ac7f9",
+          500: "#5aabf2",
+          600: "#2d88d9",
+          700: "#1a66b3",
+          800: "#184a83",
+          900: "#163b66",
+          950: "#0c2240",
         },
+        // Neutral "paper" — warm off-white + inky text. Replaces the old sand scale.
         sand: {
-          50: "#fbf9f5",
-          100: "#f4eee2",
-          200: "#e8dcc0",
-          300: "#d8c397",
-          400: "#c5a366",
-          500: "#b38847",
-          600: "#8f6a37",
-          700: "#6d502e",
-          800: "#4b3821",
-          900: "#2f2414",
+          50: "#fafafa",
+          100: "#f4f4f5",
+          200: "#e7e7ea",
+          300: "#d3d3d7",
+          400: "#a3a3a8",
+          500: "#737378",
+          600: "#525258",
+          700: "#3f3f44",
+          800: "#262629",
+          900: "#17171a",
         },
+        ink: {
+          50: "#fafafa",
+          100: "#f4f4f5",
+          200: "#e7e7ea",
+          300: "#d3d3d7",
+          400: "#a3a3a8",
+          500: "#737378",
+          600: "#525258",
+          700: "#3f3f44",
+          800: "#262629",
+          900: "#17171a",
+        },
+        paper: "#fbfcfe",
       },
       fontFamily: {
         sans: [
@@ -46,9 +62,19 @@ const config: Config = {
           "Arial",
           "sans-serif",
         ],
+        display: [
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "sans-serif",
+        ],
+      },
+      letterSpacing: {
+        tightest: "-0.035em",
       },
       animation: {
-        "fade-in": "fadeIn 0.4s ease-out",
+        "fade-in": "fadeIn 0.35s ease-out",
       },
       keyframes: {
         fadeIn: {

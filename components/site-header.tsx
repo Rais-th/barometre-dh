@@ -22,21 +22,21 @@ export function SiteHeader() {
   ] as const;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-sand-200 bg-sand-50/90 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-30 border-b border-ink-200/70 bg-paper/80 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 py-4 sm:px-8 lg:px-10">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold tracking-tight text-brand-800"
+          className="group inline-flex items-center gap-2.5 text-[15px] font-semibold tracking-tightest text-ink-900"
         >
           <span
             aria-hidden
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-white"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-brand-900 text-[11px] font-semibold uppercase tracking-wider text-brand-200"
           >
             DH
           </span>
           <span>{tSite("name")}</span>
         </Link>
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
           {links.map((link) => {
             const active =
               link.href === "/"
@@ -47,26 +47,28 @@ export function SiteHeader() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "rounded-md px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-sand-100 hover:text-neutral-900",
-                  active && "bg-brand-50 text-brand-800"
+                  "rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors",
+                  active
+                    ? "bg-brand-950 text-white"
+                    : "text-ink-600 hover:bg-ink-100 hover:text-ink-900"
                 )}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="ml-2 border-l border-sand-200 pl-2">
+          <div className="ml-3 border-l border-ink-200 pl-3">
             <LanguageToggle />
           </div>
         </nav>
-        <div className="flex items-center gap-2 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <LanguageToggle />
           <button
             type="button"
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-sand-200 bg-white text-neutral-700"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-ink-200 bg-white text-ink-700 transition-colors hover:bg-brand-50"
           >
             <span className="sr-only">Menu</span>
             <svg
@@ -75,7 +77,7 @@ export function SiteHeader() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.8"
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden
@@ -92,16 +94,16 @@ export function SiteHeader() {
       {open && (
         <nav
           id="mobile-nav"
-          className="border-t border-sand-200 bg-white md:hidden"
+          className="border-t border-ink-200/70 bg-white lg:hidden"
           aria-label="Mobile"
         >
-          <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-2 sm:px-6">
+          <div className="mx-auto flex w-full max-w-6xl flex-col px-5 py-2 sm:px-8">
             {links.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2 text-sm font-medium text-neutral-800 hover:bg-sand-100"
+                className="rounded-md px-3 py-2.5 text-[14px] font-medium text-ink-800 hover:bg-ink-100"
               >
                 {link.label}
               </Link>

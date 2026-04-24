@@ -3,15 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --background: 250 250 248;
-  --foreground: 23 23 26;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: 18 18 22;
-    --foreground: 245 245 247;
-  }
+  --background: 251 252 254;    /* paper #fbfcfe */
+  --foreground: 23 23 26;        /* ink-900 */
+  --ring: 24 74 131;              /* brand-800 */
 }
 
 html,
@@ -23,32 +17,193 @@ body {
 body {
   color: rgb(var(--foreground));
   background: rgb(var(--background));
-  font-feature-settings: "cv11", "ss01";
+  font-feature-settings: "cv11", "ss01", "ss03";
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Focus ring for keyboard users */
 :focus-visible {
-  outline: 2px solid rgb(124 77 255);
+  outline: 2px solid rgb(var(--ring));
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Hide scrollbar on specific elements but keep scroll */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  scrollbar-width: none;
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+.tnum { font-variant-numeric: tabular-nums; }
+.font-mono-tight {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-feature-settings: "ss01", "ss02", "ss03", "cv11";
+  letter-spacing: 0.02em;
 }
 
-/* Print hide for panic close button */
-@media print {
-  .print-hide {
-    display: none;
+@media print { .print-hide { display: none; } }
+
+::selection { background: #184a83; color: #ffffff; }
+
+/* ===== "Shimmer" surface — deep navy with radial glow + dot grid.
+   One reusable class for any navy panel that needs a bit of atmosphere.
+   Two layered pseudo-elements: glow (top-center), grid (low-opacity dots).
+   ==== */
+.surface-navy {
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(180deg, #102a4f 0%, #0c2240 55%, #091b34 100%);
+}
+.surface-navy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+      ellipse 70% 55% at 50% -10%,
+      rgba(138, 199, 249, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 60% at 85% 0%,
+      rgba(45, 136, 217, 0.12),
+      transparent 55%
+    );
+  mix-blend-mode: screen;
+}
+.surface-navy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.85) 35%,
+    rgba(0, 0, 0, 0.85) 65%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.85) 35%,
+    rgba(0, 0, 0, 0.85) 65%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.surface-navy > * { position: relative; z-index: 1; }
+
+/* ===== Top hairline — Linear-style 1px glowing border top on cards ==== */
+.hairline-top {
+  position: relative;
+}
+.hairline-top::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: -1px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(138, 199, 249, 0.55) 50%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ===== Headline gradient — subtle, only for one word/phrase ==== */
+.text-sheen {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffffff 55%,
+    #b8e0fd 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ===== Slow aurora pulse at the top of the hero ==== */
+.aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.aurora::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: 10%;
+  right: 10%;
+  height: 80%;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% 100%,
+    rgba(184, 224, 253, 0.18),
+    transparent 70%
+  );
+  filter: blur(40px);
+  animation: aurora-drift 14s ease-in-out infinite alternate;
+}
+@keyframes aurora-drift {
+  0%   { transform: translateX(-4%) translateY(0); opacity: 0.85; }
+  50%  { transform: translateX(3%)  translateY(2%); opacity: 1; }
+  100% { transform: translateX(-2%) translateY(-2%); opacity: 0.75; }
+}
+
+/* ===== Pulsing dot for eyebrow ==== */
+.pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #8ac7f9;
+}
+.pulse-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  box-shadow: 0 0 0 0 rgba(138, 199, 249, 0.7);
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(138, 199, 249, 0.55); }
+  80%  { box-shadow: 0 0 0 10px rgba(138, 199, 249, 0);   }
+  100% { box-shadow: 0 0 0 0 rgba(138, 199, 249, 0);      }
+}
+
+/* ===== Step-by-step wizard transitions ==== */
+@keyframes step-in-forward {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes step-in-back {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-step      { animation: step-in-forward 220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.animate-step-back { animation: step-in-back    220ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before,
+  .pulse-dot::after,
+  .animate-step,
+  .animate-step-back {
+    animation: none;
   }
 }

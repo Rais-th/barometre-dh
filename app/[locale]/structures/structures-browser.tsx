@@ -43,13 +43,13 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
 
   return (
     <>
-      <div className="mt-8 flex flex-wrap gap-3">
-        <label className="flex flex-col text-xs font-medium text-neutral-700">
+      <div className="mt-10 flex flex-wrap gap-4 rounded-xl border border-ink-200 bg-white p-4">
+        <label className="flex flex-col text-[12px] font-semibold uppercase tracking-[0.1em] text-ink-600">
           {t("filterProvince")}
           <select
             value={province}
             onChange={(e) => setProvince(e.target.value)}
-            className="mt-1 min-w-48 rounded-md border border-sand-200 bg-white px-3 py-2 text-sm text-neutral-900"
+            className="mt-1.5 min-w-48 rounded-md border border-ink-200 bg-white px-3 py-2 text-[14px] text-ink-900 transition-colors focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-300"
           >
             <option value="">{t("all")}</option>
             {provinceOptions.map(([code, name]) => (
@@ -59,12 +59,12 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
             ))}
           </select>
         </label>
-        <label className="flex flex-col text-xs font-medium text-neutral-700">
+        <label className="flex flex-col text-[12px] font-semibold uppercase tracking-[0.1em] text-ink-600">
           {t("filterCategory")}
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="mt-1 min-w-48 rounded-md border border-sand-200 bg-white px-3 py-2 text-sm text-neutral-900"
+            className="mt-1.5 min-w-48 rounded-md border border-ink-200 bg-white px-3 py-2 text-[14px] text-ink-900 transition-colors focus:border-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-300"
           >
             <option value="">{t("all")}</option>
             {categoryOptions.map((c) => (
@@ -77,22 +77,22 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-12 rounded-2xl bg-white p-8 text-center text-sm text-neutral-600 ring-1 ring-sand-200">
+        <p className="mt-10 rounded-xl border border-ink-200 bg-white p-8 text-center text-[14px] text-ink-500">
           {t("empty")}
         </p>
       ) : (
-        <ul className="mt-8 grid gap-4 md:grid-cols-2">
+        <ul className="mt-8 grid gap-3 md:grid-cols-2">
           {filtered.map((p) => (
             <li
               key={p.id}
-              className="rounded-2xl bg-white p-5 ring-1 ring-sand-200"
+              className="rounded-xl border border-ink-200 bg-white p-5 transition-colors hover:border-brand-400"
             >
               <div className="flex items-start justify-between gap-3">
-                <h3 className="text-base font-semibold text-neutral-900">
+                <h3 className="text-[16px] font-semibold tracking-tight text-ink-900">
                   {p.name}
                 </h3>
                 {p.verified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-1 text-xs font-medium text-brand-800">
+                  <span className="inline-flex items-center gap-1 rounded-md bg-brand-100 px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-800">
                     <svg
                       width="12"
                       height="12"
@@ -110,18 +110,18 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
                   </span>
                 )}
               </div>
-              <p className="mt-1 text-xs uppercase tracking-wider text-neutral-500">
+              <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-ink-500">
                 {t(`category.${p.category}` as any)} · {p.provinceName}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+              <p className="mt-3 text-[14px] leading-[1.65] text-ink-700">
                 {p.services}
               </p>
-              <dl className="mt-4 space-y-1 text-sm text-neutral-700">
+              <dl className="mt-4 space-y-1.5 text-[13px] text-ink-700">
                 {p.contactPhone && (
                   <Row label={t("phone")}>
                     <a
                       href={`tel:${p.contactPhone}`}
-                      className="text-brand-700 hover:underline"
+                      className="text-brand-800 underline decoration-brand-300 decoration-1 underline-offset-4 hover:text-brand-900"
                     >
                       {p.contactPhone}
                     </a>
@@ -131,7 +131,7 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
                   <Row label={t("email")}>
                     <a
                       href={`mailto:${p.contactEmail}`}
-                      className="text-brand-700 hover:underline"
+                      className="text-brand-800 underline decoration-brand-300 decoration-1 underline-offset-4 hover:text-brand-900"
                     >
                       {p.contactEmail}
                     </a>
@@ -143,7 +143,7 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
                       href={p.website}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-brand-700 hover:underline"
+                      className="text-brand-800 underline decoration-brand-300 decoration-1 underline-offset-4 hover:text-brand-900"
                     >
                       {p.website}
                     </a>
@@ -161,11 +161,11 @@ export function StructuresBrowser({ partners }: { partners: Partner[] }) {
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex gap-2">
-      <dt className="w-20 flex-none text-xs uppercase tracking-wider text-neutral-500">
+    <div className="flex gap-3">
+      <dt className="w-20 flex-none text-[10px] font-semibold uppercase tracking-[0.12em] text-ink-500">
         {label}
       </dt>
-      <dd className="text-sm">{children}</dd>
+      <dd className="text-[13px]">{children}</dd>
     </div>
   );
 }

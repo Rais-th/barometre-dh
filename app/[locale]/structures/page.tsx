@@ -31,11 +31,14 @@ export default async function StructuresPage({
 
   return (
     <section className="animate-fade-in">
-      <header>
-        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+      <header className="max-w-3xl">
+        <p className="font-mono-tight text-[11px] font-medium uppercase tracking-[0.18em] text-brand-800">
+          Annuaire partenaires
+        </p>
+        <h1 className="mt-3 text-4xl font-semibold leading-[1.1] tracking-tightest text-ink-900 sm:text-5xl">
           {t("title")}
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-700">
+        <p className="mt-4 max-w-2xl text-[16px] leading-[1.7] text-ink-700">
           {t("lead")}
         </p>
       </header>

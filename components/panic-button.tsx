@@ -8,7 +8,6 @@ export function PanicButton() {
 
   const handleClose = useCallback(() => {
     try {
-      // Replace the history entry so Back does not return to the platform.
       window.history.replaceState(null, "", "about:blank");
     } catch {
       /* noop */
@@ -21,15 +20,15 @@ export function PanicButton() {
       type="button"
       onClick={handleClose}
       aria-label={t("a11y")}
-      className="print-hide fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-neutral-900 px-4 py-2.5 text-sm font-medium text-white shadow-lg ring-1 ring-black/10 transition hover:bg-neutral-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+      className="print-hide fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-ink-900 px-4 py-2.5 text-[12px] font-semibold uppercase tracking-wider text-white shadow-lg shadow-ink-900/15 ring-1 ring-ink-900/10 transition hover:bg-ink-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
     >
       <svg
-        width="16"
-        height="16"
+        width="14"
+        height="14"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
-        strokeWidth="2"
+        strokeWidth="2.2"
         strokeLinecap="round"
         strokeLinejoin="round"
         aria-hidden

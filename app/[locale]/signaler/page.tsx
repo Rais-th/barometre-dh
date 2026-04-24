@@ -19,13 +19,14 @@ export default async function ReportPage({
 
   return (
     <section className="animate-fade-in">
-      <header>
-        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl">
+      <header className="max-w-2xl">
+        <p className="font-mono-tight text-[11px] font-medium uppercase tracking-[0.18em] text-brand-800">
+          Formulaire confidentiel · 8 étapes
+        </p>
+        <h1 className="mt-3 text-3xl font-semibold leading-[1.15] tracking-tightest text-ink-900 sm:text-[40px]">
           {t("title")}
         </h1>
-        <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-700">
-          {t("lead")}
-        </p>
+        <p className="mt-3 text-[15px] leading-[1.65] text-ink-600">{t("lead")}</p>
       </header>
 
       <IntakeForm provinces={provinces} locale={locale as Locale} />

@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/i18n/routing";
 
@@ -44,11 +44,12 @@ export default async function LocaleLayout({
   }
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "site" });
+  const messages = await getMessages();
 
   return (
     <html lang={locale}>
-      <body className="min-h-screen bg-sand-50 text-neutral-900 antialiased">
-        <NextIntlClientProvider>
+      <body className="min-h-screen bg-paper text-ink-900 antialiased">
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:shadow"
@@ -57,7 +58,7 @@ export default async function LocaleLayout({
           </a>
           <PanicButton />
           <SiteHeader />
-          <main id="main" className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+          <main id="main" className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 lg:px-10 lg:py-14">
             {children}
           </main>
           <SiteFooter />

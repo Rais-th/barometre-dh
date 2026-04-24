@@ -23,7 +23,7 @@ export function LanguageToggle() {
 
   return (
     <div
-      className="inline-flex overflow-hidden rounded-md border border-sand-200 bg-white text-xs"
+      className="inline-flex overflow-hidden rounded-md border border-ink-200 bg-white text-[11px] tnum"
       role="group"
       aria-label={t("switch")}
     >
@@ -34,10 +34,10 @@ export function LanguageToggle() {
           disabled={pending || loc === locale}
           onClick={() => switchTo(loc)}
           className={
-            "px-2.5 py-1.5 font-medium uppercase tracking-wide " +
+            "px-2.5 py-1.5 font-semibold uppercase tracking-wider transition-colors " +
             (loc === locale
-              ? "bg-brand-600 text-white"
-              : "text-neutral-700 hover:bg-sand-100")
+              ? "bg-brand-950 text-white"
+              : "text-ink-600 hover:bg-ink-100 hover:text-ink-900")
           }
         >
           {loc}
